@@ -1,0 +1,137 @@
+<div class="col-12 mb-3" id="campos_Data">
+               <div class="card">
+                  <div class="col-12 card-body">
+                     <div class="form-group  row">
+                        <!---->
+                        <div class="form-floating col-3 mb-2">
+                           <select class="form-select" id="selectLiquidacao" name="tipoLiquidacao" >
+                              <option selected>Selecione</option>
+                              <option value="4">Distrato</option>
+                              <option value="5">MIP</option>
+                              <option value="6">Antecipada/Beneficiário </option>
+                              <option value="7">Cumprimento de Sentença</option>
+                              <option value="8">Indevida </option>
+                           </select>
+                           <label for="selectLiquidacao">Tipo de liquidação:</label>
+                        </div>
+                        <!---->
+                        <div class="form-floating col-2 mb-2">
+                           <select class="form-select" id="selectDenuncia" name="conducaoDenuncia">
+                              <option selected>Selecione</option>
+                              <option value="1">Falta documentos à cargo do denunciante (não é o beneficário!)</option>
+                              <option value="2">Aguarda providência Cartório</option>
+                              <option value="3">Aguarda providência do beneficário</option>
+                              <option value="4">Data de emissão primeira notificação</option>
+                              <option value="5">Data de protocolo primeira notificação</option>
+                              <option value="6">Data de emissão segunda notificação</option>
+                              <option value="7">Data de protocolo segunda notificação</option>
+                              <option value="8">Data do encaminhamento para ajuizamento (Ajure/Nujur)</option>
+                              <option value="9">Ajuizada</option>
+                              <option value="10">Reintegrada</option>
+                              <option value="11">Substituída</option>
+                              <option value="12">Vício construtivo - Construtora notificada</option>
+                              <option value="13">Vício construtivo - Aguarda resposta construtora</option>
+                              <option value="14">Vício construtivo - resposta construtora afastando vício</option>
+                              <option value="15">Vício construtivo - enviado para análise Cesup</option>
+                              <option value="16">Vício construtivo - não atendido pela Construtora</option>
+                              <option value="17">Vício construtivo - solitando inscrição no CONRES</option>
+                           </select>
+                           <label for="selectDenuncia">Condução de denúncia:</label>
+                        </div>
+                        <!---->                  
+                        <div class="form-floating col-2">
+                           <div class="label" for="">Encerrar denúncia:</div>
+                           <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" name="denunciaBaixada" id="inlineRadio1" value="Sim">
+                              <label class="form-check-label" for="inlineRadio1"> Sim </label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="checkbox" name="denunciaBaixada" id="inlineRadio2" value="Não">
+                              <label class="form-check-label" for="inlineRadio2"> Não </label>
+                           </div>
+                        </div>
+                        <!---->
+                        <div class="form-floating col-3 mb-3">
+                           <select class="form-select" id="selectDenunciante" name="denunciante">
+                              <option selected>Selecione</option>
+                              <option value="1">Ente Público</option>
+                              <option value="2">Próprio beneficiário</option>
+                              <option value="3">Síndico e/ou equivalente</option>
+                              <option value="4">Poder Judiciário (MP, Juiz, Defensoria Pública)</option>
+                              <option value="5">Não se aplica (caso a ocorrência não seja relativo à denúncia) </option>
+                           </select>
+                           <label for="selectDenunciante">Denunciante:</label>
+                        </div>
+                        <!---->
+                        <div class="form-floating col-2 mb-3">
+                           <input id="dtDenuncia" class="form-control" type="date" name="dtDenuncia" value=""/>  
+                           <label for="dtDenuncia">Data denúncia:</label>
+                        </div>
+                        <!---->
+                        <div class="form-floating col-3 mb-3">
+                           <select class="form-select" id="selectReintegracao" name="reitegracao">
+                              <option selected>Selecione</option>
+                              <option value="1">Data da reintegração</option>
+                              <option value="2">judicial = dados processo</option>
+                              <option value="3">comando de consolidação de propriedade com UH disponível não invadida!</option>
+                           </select>
+                           <label for="selectReintegracao">Reintegraçao:</label>
+                        </div>
+                        <!---->              
+                        <div class="form-floating col-2 mb-3">
+                           <input id="dtReintegracao" class="form-control" type="date" name="dtReintegracao" value=""/>  
+                           <label for="dtReintegracao">Data reintegração:</label>
+                        </div>
+                        <!---->
+                        <div class="form-floating col-2 mb-3">
+                           <input id="nmProcesso" class="form-control" type="date" name="NmProcesso" value="" />  
+                           <label for="nmProcesso">Número processo:</label>
+                        </div>
+                        <!---->
+                        <div class="form-group row">
+                           <div class="form-floating col-2 mb-3">
+                              <input class="form-control" type="date" name="dt1Notificacao" value="">
+                              <label for="">Dt. 1ª Notificação:</label>
+                           </div>
+                           <div class="form-floating col-2 mb-3">
+                              <input class="form-control" type="date" name="dt2Notificacao" value="">
+                              <label for="floatingPlaintextInput">Dt. 2ª Notificação:</label>
+                           </div>
+                           <div class="form-floating col-2 mb-3">
+                              <input class="form-control" type="date" name="dtProtocolo1Notificacao" value="">
+                              <label for="">Dt. Protoc. 1ª Notificação:</label>
+                           </div>
+                           <div class="form-floating col-2 mb-3">
+                              <input class="form-control" type="date" name="dtProtocolo2Notificacao" value="">
+                              <label for="">Dt. Protoc. 2ª Notificação:</label>
+                           </div>
+                           <div class="form-floating col-2 mb-3">
+                              <input class="form-control" type="date" name="dtEncaminAzuizamento" value="">
+                              <label for="">Dt. Encamin.Ajuizamento:</label>
+                           </div>
+                        </div>
+                        <div class="form-group row justify-content-between">
+                           <div class="form-floating col-3 mb-3">
+                              <select class="form-select" id="lista-conteudos" name="conducao" onchange="capturarValor()">
+                                 <option value="">Selecione</option>
+                                 <option value="4">Vício Construtivo</option>
+                                 <option value="1">Desvio de Finalidade/Venda</option>
+                                 <option value="1">Desvio de Finalidade/Abandono</option>
+                                 <option value="1">Desvio de Finalidade/Cessão</option>
+                                 <option value="1">Desvio de Finalidade/Aluguel</option>
+                                 <option value="2">Distrato/Desistência FAR</option>
+                                 <option value="2">Distrato/Desistência FAR/FGTS</option>
+                                 <option value="3">Distrato Agravo Dev.Parcelas FAR</option>
+                                 <option value="3">Distrato Agravo Dev.Parcelas FAR/FGTS</option>
+                                 <option value="3">Distrato Agravo Troca de UH FAR</option>
+                                 <option value="3">Distrato Agravo Troca de UH FAR/FGTS</option>
+                              </select>
+                              <label for="floatingPlaintextInput">Condução:</label>
+                           </div>
+                           <button type="submit" class="btn btn-primary col-1 mb-3" data-toggle="tooltip" data-placement="top" title="Clique para Salvar">Salvar</button> 
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
