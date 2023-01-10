@@ -1,0 +1,49 @@
+<div th:fragment="busca" class="col-5" id="blocoBusca">
+    <div class="card c-extrato">
+        <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
+            <small class="font-monospace text-muted text-uppercase">Pagamento Avulso</small>
+        </div>
+        <div class="card-body form-group row gx-2 gy-3">
+            <div class="row m-2">
+                <div class="col-4 row">
+                    <label class="form-check-label col">Tipo:</label>
+                    <div class="form-check col">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="tipoAOF"
+                               value="option1">
+                        <label class="form-check-label" for="tipoAOF">
+                            AOF
+                        </label>
+                    </div>
+                    <div class="form-check col">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="tipoGSV"
+                               value="option2">
+                        <label class="form-check-label" for="tipoGSV">
+                            GSV
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-7 row">
+                <div class="col-6">
+                    <input class="form-control" type="text" placeholder="Número GSV" name="nm_GSV"
+                           aria-label="">
+                </div>
+                <div class="col-6">
+                    <input class="form-control" type="text" placeholder="Conta Judicial" name="nm_ccJud"
+                           aria-label="">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input form-top" type="checkbox" role="switch"
+                               id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">
+                            Consultar Pagamentos
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5 row">
+                <button type="button" class="btn btn-sm btn-primary col-5 me-2" id="Tratar"> Tratar</button>
+                <button type="button" class="btn btn-sm btn-primary col-5 me-2"> Nova Consulta</button>
+            </div>
+        </div>
+    </div>
+</div>

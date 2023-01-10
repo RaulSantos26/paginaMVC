@@ -1,0 +1,20 @@
+<div th:fragment="dash" class="row justify-content-around py-3 px-4" id="upperDash">
+    <div class="row flex-row flex-wrap py-3 ">
+        <!-- Dados GSV-->
+        <div th:replace="~{fragments/dash/dadosGsv.html :: dadosGsv}"></div>
+        <!--Fim Dados GSV-->
+
+        <!-- Bloco Busca-->
+        <div th:replace="~{fragments/dash/busca.html :: busca}"></div>
+        <!--Fim do Bloco Busca-->
+
+        <!--Bloco Cabeçalho Conta-->
+        <div th:replace="~{fragments/dash/ordemPagamento.html :: ordemPagto}"></div>
+        <!--Fim do Bloco cabeçalho conta-->
+
+        <!--Bloco Tabelas Gsv-->
+        <di th:replace="~{fragments/dash/tabelasGsv.html :: tabelasGsv}"></di>
+        <!--Fim do Bloco Tabelas Gsv-->
+
+    </div>
+</div>
