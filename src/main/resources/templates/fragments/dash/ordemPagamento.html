@@ -1,4 +1,5 @@
-<div th:fragment="ordemPagto" class="col-5" id="blocoCConta">
+<div th:fragment="ordemPagto" class="col-5" id="blocoCConta" th:styleappend="${(hide == 1) ?'display: none;' : ''}">
+
     <div class="card c-extrato">
         <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
             <small class="font-monospace text-muted text-uppercase">Ordem de Pagamento - AOF <span id="nm-AOF">2022/1234567</span></small>
@@ -43,4 +44,5 @@
             </div>
         </div>
     </div>
+
 </div>

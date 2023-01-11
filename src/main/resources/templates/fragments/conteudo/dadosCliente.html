@@ -1,4 +1,4 @@
-<div th:fragment ="dadosCliente" class="col-8" id="DadosCliente">
+<div th:fragment ="dadosCliente" class="col-8" id="DadosCliente" th:styleappend="${(hide == 1) ? 'display: none;' : ''}">
     <div class="col-12 card">
         <div class="card-body">
             <div class="card-body form-group row ">

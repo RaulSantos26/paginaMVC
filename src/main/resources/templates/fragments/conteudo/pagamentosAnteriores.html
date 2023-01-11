@@ -1,4 +1,4 @@
-<div th:fragment ="pagtoAnteriores" class="col-4" id="PagAnterior">
+<div th:fragment ="pagtoAnteriores" class="col-4" id="PagAnterior" th:styleappend="${(hide == 1) ? 'display: none;' : ''}">
     <div class="col-12 card">
         <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
             <small class="font-monospace text-muted text-uppercase">Pagamentos Anteriores</small>

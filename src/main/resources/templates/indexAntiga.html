@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/head :: head('Integra')}"></head>
+<body onload="myFunction()">
+<nav class="nav navbar nav-app">
+    <embed
+            type="text/html"
+            src="https://cenopservicossp.intranet.bb.com.br/Downloads/header-html/index.html?centro=Cenop Neg Estr E Gov&titulo=Integra DJO&subtitulo="
+            width="100%"
+            height="72px"
+            style="position: fixed; z-index:2000;"
+    />
+</nav>
+<!--loader
+    O Tempo do Loader pode ser alterado no script no fim deste arquivo-->
+<div id="loader"></div>
+<!--MenuLateral-->
+<div th:replace="~{fragments/menuLateral :: mLateral}"></div>
+<!--Dash-->
+<div class="row justify-content-around py-3 px-4" id="upperDash">
+    <div class="row flex-row flex-wrap py-3 ">
+        <div class="col-7 ">
+            <div class="row flex-row flex-wrap  px-5 hstack gap-3" id="">
+                <div class="card-header mz-1 ml-1">Olá <strong><span id="nomeFunci">Ana Silva</span></strong>, acompanhe
+                    aqui a sua fila.
+                </div>
+                <button class="btn btn-priorizado btn-sq-lg btn-sm col-2 rounded-5 me-2" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#priorizadoLista" aria-expanded="false"
+                        aria-controls="priorizadoLista">
+                    <div class="btn-tit">Priorizados</div>
+                    <p>3</p>
+                </button>
+                <button class="btn btn-valor btn-sq-lg btn-sm col-2 rounded-5 me-2" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#diligenciaLista" aria-expanded="false"
+                        aria-controls="diligenciaLista">
+                    <div class="btn-tit">Aguardando Analise</div>
+                    <p>14</p>
+                </button>
+                <button class="btn btn-valor btn-sq-lg btn-sm col-2 rounded-5 me-2" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#totalLista" aria-expanded="false"
+                        aria-controls="totalLista">
+                    <div class="btn-tit"> Diligencias</div>
+                    <p>17</p>
+                </button>
+                <button class="btn btn-valor btn-sq-lg btn-sm col-2 rounded-5 me-2" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#validarLista" aria-expanded="false"
+                        aria-controls="priorizadoLista">
+                    <div class="btn-tit"> A validar gerente</div>
+                    <p>3</p>
+                </button>
+                <button class="btn btn-total btn-sq-lg btn-sm col-2 rounded-5 me-2" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#" aria-expanded="false"
+                        aria-controls="priorizadoLista">
+                    <div class="btn-tit">Total</div>
+                    <p>3</p>
+                </button>
+                <div class="col-2"></div>
+            </div>
+        </div>
+        <!-- Bloco Busca-->
+        <div class="col-5" id="blocoBusca">
+            <div class="card c-extrato">
+                <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
+                    <small class="font-monospace text-muted text-uppercase">Pagamento Avulso</small>
+                </div>
+                <div class="card-body form-group row gx-2 gy-3">
+                    <form th:object="${pesquisaDTO}" action="/pesquisa" method="post">
+                        <div class="row m-2">
+                            <div class="col-4 row">
+                                <label class="form-check-label col">Tipo:</label>
+                                <div class="form-check col">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="tipoAOF"
+                                           value="option1">
+                                    <label class="form-check-label" for="tipoAOF">
+                                        AOF
+                                    </label>
+                                </div>
+                                <div class="form-check col">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="tipoGSV"
+                                           value="option2">
+                                    <label class="form-check-label" for="tipoGSV">
+                                        GSV
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 row">
+                            <div class="col-6">
+                                <input class="form-control" type="text" placeholder="Número GSV" name="gsv"
+                                       aria-label="">
+                            </div>
+                            <div class="col-6">
+                                <input class="form-control" type="text" placeholder="Conta Judicial"
+                                       name="contaJudicial"
+                                       aria-label="">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input form-top" type="checkbox" role="switch"
+                                           id="flexSwitchCheckDefault">
+                                    <label class="form-check-label" for="flexSwitchCheckDefault">
+                                        Consultar Pagamentos
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5 row">
+                            <button type="button" class="btn btn-sm btn-primary col-5 me-2" id="Tratar"> Tratar</button>
+                            <button type="button" class="btn btn-sm btn-primary col-5 me-2"> Nova Consulta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--Fim do Bloco Busca-->
+        <!--Bloco Cabeçalho Conta-->
+        <!--        style="visibility: hidden;"-->
+        <div class="col-5" id="blocoCConta">
+            <div class="card c-extrato">
+                <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
+                    <small class="font-monospace text-muted text-uppercase">Ordem de Pagamento - AOF <span id="nm-AOF">2022/1234567</span></small>
+                    <div class="d-flex ms-auto">
+                        <a type="button" class="btn btn-sm btn-rounded btn-clipboard" href="/"><i
+                                class="bi bi-arrow-return-left" data-bs-toggle="" data-bs-target="#" id="Botãovoltar">
+                            voltar</i></a>
+                    </div>
+                </div>
+                <div class="card-body form-group row gx-2 gy-3">
+                    <div class="row">
+                        <div class="form-floating col-4">
+                            <input type="text" class="form-control form-control-sm" name="nm_GSV" value="12345678"
+                                   autocomplete="off" disabled="">
+                            <label for="floatingPlaintextInput">GSV</label>
+                        </div>
+                        <div class="form-floating col-4">
+                            <input type="text" class="form-control form-control-sm" name="nm_AOF"
+                                   value="TRIBUNAL DE JUSTIÇA / BA" autocomplete="off" disabled="">
+                            <label for="floatingPlaintextInput">Tribunal / UF</label>
+                        </div>
+                        <div class="form-floating col-4">
+                            <input type="text" class="form-control form-control-sm" name="nm_AOF" value="BAIANÓPOLIS"
+                                   autocomplete="off" disabled="">
+                            <label for="floatingPlaintextInput">Comarca </label>
+                        </div>
+                        <div class="form-floating col-4">
+                            <input type="text" class="form-control form-control-sm" name="nm_AOF"
+                                   value="VARA ÚNICA -PLENA" autocomplete="off" disabled="">
+                            <label for="floatingPlaintextInput">Órgão / Deprecante</label>
+                        </div>
+                        <div class="form-floating col-4">
+                            <input type="text" class="form-control form-control-sm" name="nm_AOF"
+                                   value="PRECATÓRIO FEDERAL" autocomplete="off" disabled="">
+                            <label for="floatingPlaintextInput">Esfera </label>
+                        </div>
+                        <div class="form-floating col-4">
+                            <input type="text" class="form-control form-control-sm" name="nm_AOF"
+                                   value="0000800095478932145" autocomplete="off" disabled="">
+                            <label for="floatingPlaintextInput">Processo / Ação Originaria</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Fim do Bloco cabeçalho conta-->
+        <!--Detalhe Priorizado-->
+        <div class="collapse" id="priorizadoLista" data-bs-parent="#upperDash">
+            <div class="card card-body filaFunci">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Protocolo</th>
+                        <th scope="col">Atividade</th>
+                        <th scope="col">Data</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>66951880</td>
+                        <td>RESGATAR DJO</td>
+                        <td>13/12/2022 08:26:33</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>78945880</td>
+                        <td>RESGATAR DJO</td>
+                        <td>13/12/2022 08:24:00</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>58800880</td>
+                        <td>RESGATAR DJO</td>
+                        <td>13/12/2022 08:12:33</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--Detalhe Aguardando Análise-->
+        <div class="collapse" id="diligenciaLista" data-bs-parent="#upperDash">
+            <div class="card card-body filaFunci">
+                Tabela Analise
+            </div>
+        </div>
+        <!--Detalhe Diligencias-->
+        <div class="collapse" id="totalLista" data-bs-parent="#upperDash">
+            <div class="card card-body filaFunci">
+                Tabela Diligencias
+            </div>
+        </div>
+        <!--Detalhe a Validar-->
+        <div class="collapse" id="validarLista" data-bs-parent="#upperDash">
+            <div class="card card-body filaFunci">
+                Tabela a Validar
+            </div>
+        </div>
+    </div>
+</div>
+<!--Fim do Dash Superior -->
+<!--conteudo
+    Sua exibição é controlada pelo Loader-->
+<div id="Conteudo">
+    <div class="row m-2" id="ConteudoDetalhe">
+        <div class="card ">
+            <div class="card-header dp3-rxx">Pagamento Avulso</div>
+            <div class="card-body row">
+                <!-- Bloco Etapa
+                    Observar na documentação elaborada pelo Zózimo a quantidade de etapas-->
+                <div class="col-2 mb-2" id="Etapa">
+                    <div class="col-12 card">
+                        <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
+                            <small class="font-monospace text-muted text-uppercase">ETAPA</small>
+                        </div>
+                        <div class="col-md-12 ">
+                            <ul class="timeline">
+                                <li>
+                                    <a id="tipoEmail" href="">Fila Entrada</a>
+                                    <p id="dataEmail" class="data">dd/mm/aaaa</p>
+                                </li>
+                                <li>
+                                    <a id="tipoTitulo" href="">Analisando</a>
+                                    <p id="nr_matricula" class="data">F000000</p>
+                                    <p id="nm_funci" class="data">Ana da Silva</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Fim do Bloco Etapa-->
+                <div class="col-9 row">
+                    <!--Lista Pagamentos-->
+                    <div class="col-4" id="PagAnterior">
+                        <div class="col-12 card">
+                            <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
+                                <small class="font-monospace text-muted text-uppercase">Pagamentos Anteriores</small>
+                            </div>
+                            <table class="table table-hover">
+                                <tbody>
+                                <th>Mandado (SisBB)</th>
+                                <th>Capital resgatado</th>
+                                <th>Valor Liquido</th>
+                                <tr>
+                                    <td>012/22</td>
+                                    <td> 185.384,09</td>
+                                    <td> 201.142,40</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--Fm da Lista Pagamentos-->
+                    <!--Formulário-->
+                    <div class="col-8" id="DadosCliente">
+                        <div class="col-12 card">
+                            <div class="card-body">
+                                <div class="card-body form-group row ">
+                                    <div class="form-floating col-6">
+                                        <input type="text" class="form-control form-control-sm" name="nome_Requerente"
+                                               value="123.456.789-00 - JÃO DA SILVA " autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">CPF/CNPJ - Requerente </label>
+                                    </div>
+                                    <div class="form-floating col-6">
+                                        <input type="text" class="form-control form-control-sm" name="nome_Advogado"
+                                               value="123.123.123.45 - MARIA MARISTELA MAIRIPORÃ" autocomplete="off"
+                                               disabled="">
+                                        <label for="floatingPlaintextInput">CPF - Advogado </label>
+                                    </div>
+                                    <div class="form-floating col-3">
+                                        <input type="text" class="form-control form-control-sm" name="total_Aplicado"
+                                               value="199.999.999.999.999,99" autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">Total Aplicado </label>
+                                    </div>
+                                    <div class="form-floating col-3">
+                                        <input type="text" class="form-control form-control-sm" name="total_Reservado"
+                                               value="" autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">Reservado</label>
+                                    </div>
+                                    <div class="form-floating col-3">
+                                        <input type="text" class="form-control form-control-sm" name="total_Saldo"
+                                               value="12.333,99" autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">Saldo Aplicado</label>
+                                    </div>
+                                    <div class="form-floating col-3">
+                                        <input type="text" class="form-control form-control-sm" name="ptojetad_Dia"
+                                               value="17.999,99" autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">Projetado p/ hoje</label>
+                                    </div>
+                                    <div class="form-floating col-3">
+                                        <input type="text" class="form-control form-control-sm" name="vlr_IR_Anterior"
+                                               value="199.999,99" autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">Valor IR Anterior </label>
+                                    </div>
+                                    <div class="form-floating col-3">
+                                        <input type="text" class="form-control form-control-sm" name="mes_IR_Anterior"
+                                               value="" autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">Meses IR Anterior</label>
+                                    </div>
+                                    <div class="form-floating col-3">
+                                        <input type="text" class="form-control form-control-sm" name="vlr_IR_Atual"
+                                               value="0,00" autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">Valor IR Atual </label>
+                                    </div>
+                                    <div class="form-floating col-3">
+                                        <input type="text" class="form-control form-control-sm" name="mes_IR_Atual"
+                                               value="000" autocomplete="off" disabled="">
+                                        <label for="floatingPlaintextInput">Meses IR Atual</label>
+                                    </div>
+                                    <div class="form-floating col-4">
+                                        <input type="text" class="form-control form-control-sm" name="mes_IR_Atual"
+                                               value="" autocomplete="off">
+                                        <label for="floatingPlaintextInput">Agência Resg.</label>
+                                    </div>
+                                    <div class="form-floating col-4">
+                                        <input type="text" class="form-control form-control-sm" name="mes_IR_Atual"
+                                               value="" autocomplete="off">
+                                        <label for="floatingPlaintextInput">Mandado</label>
+                                    </div>
+                                    <div class="form-floating col-4">
+                                        <input type="date" class="form-control form-control-sm" name="mes_IR_Atual"
+                                               value="" autocomplete="off">
+                                        <label for="floatingPlaintextInput">Data Emissão</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fim do formulário -->
+                    <div class="col-12">
+                        <div class="row">
+                            <!--Bloco Dados Resgate -->
+                            <div class="col-12">
+                                <div class="card mb-3" id="DadosResgate">
+                                    <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
+                                        <small class="font-monospace text-muted text-uppercase">DADOS PARA
+                                            RESGATE</small>
+                                    </div>
+                                    <div class="card-body form-group">
+                                        <div class="row">
+                                            <div class="form-floating col-2">
+                                                <input type="text" class="form-control form-control-sm" name="cc_Jud"
+                                                       value="000" autocomplete="off" disabled="">
+                                                <label for="floatingPlaintextInput">Conta Judicial</label>
+                                            </div>
+                                            <button type="button" class="col-2 btn btn-xs btn-primary btn-line">
+                                                Adicionar/Remover Conta
+                                            </button>
+                                            <div class="form-floating col-2">
+                                                <select class="form-select form-select-xs mb-3" name="tipoValor"
+                                                        aria-label="">
+                                                    <option selected>Selecione</option>
+                                                    <option value="1">1 - Parcial</option>
+                                                    <option value="2">2 - Total</option>
+                                                </select>
+                                                <label for="floatingPlaintextInput">Tipo Valor:</label>
+                                            </div>
+                                            <div class="form-floating col-2">
+                                                <select class="form-select form-select-xs mb-3" name="tipoPessoa"
+                                                        aria-label="">
+                                                    <option selected>Selecione</option>
+                                                    <option value="1">1 - PF</option>
+                                                    <option value="2">2 - PJ</option>
+                                                </select>
+                                                <label for="floatingPlaintextInput">Tipo Pessoa:</label>
+                                            </div>
+                                            <div class="form-floating col-2">
+                                                <input type="text" class="form-control form-control-sm" name="nm_CPF"
+                                                       value="" autocomplete="off">
+                                                <label for="floatingPlaintextInput">CPF/CNPJ</label>
+                                            </div>
+                                            <div class="form-floating col-2">
+                                                <input type="text" class="form-control form-control-sm"
+                                                       name="nome_Beneficiario" value="" autocomplete="off">
+                                                <label for="floatingPlaintextInput">Nome Beneficiario:</label>
+                                            </div>
+                                            <div class="form-floating col-2">
+                                                <input type="text" class="form-control form-control-sm"
+                                                       name="ag_inclusao" value="" autocomplete="off">
+                                                <label for="floatingPlaintextInput">Ag.(Inclusão CPF):</label>
+                                            </div>
+                                            <div class="form-check col-2 ps-5 py-3">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="defaultCheck1">
+                                                <label class="form-check-label" for="defaultCheck1">
+                                                    Representante
+                                                </label>
+                                            </div>
+                                            <div class="form-floating col-2">
+                                                <input type="text" class="form-control form-control-sm"
+                                                       name="CPF_Represeantante" value="" autocomplete="off">
+                                                <label for="floatingPlaintextInput">CPF Representate:</label>
+                                            </div>
+                                            <!--Bloco Finalidade
+                                                O comportamento deste bloco, muda de acordo com a seleção do campo Finalidade, para alterar consulte o script ao final do arquivo-->
+                                            <div class="card bg-light py-3 col-6">
+                                                <div class="row">
+                                                    <div class="form-floating col-6">
+                                                        <select class="form-select form-slect-xs mb-1" name="baseCalc"
+                                                                aria-label="">
+                                                            <option selected>Selecione</option>
+                                                            <option value="1">1 - Parcial</option>
+                                                            <option value="2">2 - Total</option>
+                                                        </select>
+                                                        <label for="floatingPlaintextInput">Base Cálculo:</label>
+                                                    </div>
+                                                    <div class="form-floating col-6">
+                                                        <select class="form-select  mb-1" name="Nm_Finalidade"
+                                                                aria-label="" onchange="FinalidadeDiv(this)">
+                                                            <option value="1" selected>Selecione</option>
+                                                            <option value="2">1 - Crédito C/C outros Bancos</option>
+                                                            <option value="3">2 - Crédito C/C BB</option>
+                                                            <option value="4">99 - Outras Finalidades</option>
+                                                        </select>
+                                                        <label for="floatingPlaintextInput">Finalidade:</label>
+                                                    </div>
+                                                </div>
+                                                <div id="outros" style="display: none;">
+                                                    <small class="font-monospace text-muted text-uppercase mb-5 py-3">Finalidade</small>
+                                                    <div class="form-group row">
+                                                        <div class="form-floating col-3">
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                   name="" value="" autocomplete="off">
+                                                            <label for="floatingPlaintextInput">Agência</label>
+                                                        </div>
+                                                        <div class="form-floating col-3">
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                   name="" value="" autocomplete="off">
+                                                            <label for="floatingPlaintextInput">Conta</label>
+                                                        </div>
+                                                        <div class="form-floating col-2">
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                   name="" value="" autocomplete="off">
+                                                            <label for="floatingPlaintextInput">Digito</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="bb" style="display: none;">
+                                                    <small class="font-monospace text-muted text-uppercase mb-5 py-3">Finalidade</small>
+                                                    <div class="form-group row">
+                                                        <div class="form-floating col-3">
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                   name="" value="" autocomplete="off">
+                                                            <label for="floatingPlaintextInput">Agência</label>
+                                                        </div>
+                                                        <div class="form-floating col-3">
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                   name="" value="" autocomplete="off">
+                                                            <label for="floatingPlaintextInput">Conta</label>
+                                                        </div>
+                                                        <div class="form-floating col-2">
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                   name="" value="" autocomplete="off">
+                                                            <label for="floatingPlaintextInput">Digito</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="diversas" style="display: none;">
+                                                    <small class="font-monospace text-muted text-uppercase mb-5 py-3">Finalidade</small>
+                                                    <div class="form-group row">
+                                                        <div class="form-floating col-5">
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                   name="" value="" autocomplete="off">
+                                                            <label for="floatingPlaintextInput">Informe a
+                                                                Finalidade</label>
+                                                        </div>
+                                                        <div class="form-check col-3 ps-5 py-3">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                   id="GuiaFGTS">
+                                                            <label class="form-check-label" for="GuiaFGTS">
+                                                                Gerar Guia FGTS
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check col-3 ps-5 py-3">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                   id="GuiaDIRF">
+                                                            <label class="form-check-label" for="GuiaDIRF">
+                                                                Gerar DIRF
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--Fim do Bloco Finalidade-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Fim do Bloco Dados Resgate -->
+                        </div>
+                    </div>
+                    <!--Tabela Parcelas-->
+                    <div class="col-12" id="Parcelas">
+                        <div class="col-12 card">
+                            <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
+                                <small class="font-monospace text-muted text-uppercase">Parcelas</small>
+                            </div>
+                            <div class="col-12">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-3">
+                                            <div class="form-check ps-5 py-3">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="defaultCheck1">
+                                                <label class="form-check-label" for="defaultCheck1">
+                                                    Exibir todas as Parcelas
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 btn-group">
+                                            <div class="input-group form-control-sm">
+                                                <span class="input-group-text">Intervalo de Parcelas</span>
+                                                <input type="text" aria-label="" class="form-control">
+                                                <span class="input-group-text">à</span>
+                                                <input type="text" aria-label="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <div class="form-check ps-5 py-3">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="defaultCheck1">
+                                                <label class="form-check-label" for="defaultCheck1">
+                                                    Incidência de IR
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <th>Parcela</th>
+                                    <th>Conta Judicial</th>
+                                    <th>Agência</th>
+                                    <th>Data Deposito</th>
+                                    <th>Saldo de Capital</th>
+                                    <th>Nº da Guia</th>
+                                    <th>Data Guia</th>
+                                    <th>Depositante</th>
+                                    <th>CPF/CNPJ</th>
+                                    <th>IR</th>
+                                    <tr>
+                                        <td>01</td>
+                                        <td>05050555552</td>
+                                        <td>1104</td>
+                                        <td>30/06/2021</td>
+                                        <td>12.128,00</td>
+                                        <td>0357996544542</td>
+                                        <td>30/06/2021</td>
+                                        <td>JUSTICA FEDERAL DE PRIMEIRA I</td>
+                                        <td>123.456.789-12</td>
+                                        <td><input class="form-check-input" type="checkbox" value="" id="ir_selector">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Botões-->
+                <div id="BotõesA" class="col-1">
+                    <div class="col d-grid gap-2">
+                        <button id="BotãoCadastrar" type="button" class="btn btn-sm btn-success">Cadastrar Pagamento
+                        </button>
+                        <button id="BotãoDocumento" type="button" class="btn btn-sm btn-warning"
+                                onclick="openRequestedPopup()">Abrir Documentos
+                        </button>
+                        <!--Na terceira tela o "BotãoCadastrar" é substituido pelo "BotãoPagar"-->
+                        <button id="BotãoPagar" type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#ModalConfirma">Efetuar Pagamento
+                        </button>
+                        <button type="button" class="btn btn-sm btn-danger">Devolver AOF</button>
+                        <a type="button" class="btn btn-sm btn-outline-primary" href="../integra/index.html">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal Documentos-->
+<div class="modal" tabindex="-1" id="Modaldocumento">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Documentos Relacionados</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        Lista
+                    </div>
+                    <div class="col-7">
+                        Texto
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--fim do Modal documentos-->
+<!--Modal Confirmação
+    Este ao fechar retorna a página inicial-->
+<div class="modal" tabindex="-1" id="ModalConfirma">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Concluido</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body">
+                <p>Pagamento Efetuado com exito.</p>
+                <p>Clique no botão abaixo para fechar</p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-secondary" href="../Integra/index.html">
+                    <span data-bs-dismiss="modal">Fechar</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- fim do Modal confirmação-->
+<div th:replace="~{fragments/arquivosJS :: javaScript}"></div>
+</body>
+
+</html>

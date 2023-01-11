@@ -1,3 +1,4 @@
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
 <div th:fragment="dash" class="row justify-content-around py-3 px-4" id="upperDash">
     <div class="row flex-row flex-wrap py-3 ">
         <!-- Dados GSV-->
@@ -5,7 +6,9 @@
         <!--Fim Dados GSV-->
 
         <!-- Bloco Busca-->
+
         <div th:replace="~{fragments/dash/busca.html :: busca}"></div>
+
         <!--Fim do Bloco Busca-->
 
         <!--Bloco Cabeçalho Conta-->
@@ -18,3 +21,4 @@
 
     </div>
 </div>
+</html>
