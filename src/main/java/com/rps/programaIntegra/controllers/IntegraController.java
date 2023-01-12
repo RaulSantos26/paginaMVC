@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -36,10 +38,13 @@ public class IntegraController {
 
     @PostMapping("/")
     public ModelAndView pesquisa(PesquisaDTO dto){
+        List<PesquisaDTO> list = new ArrayList();
         try {
+            list.add(dto);
             ModelAndView mv = new ModelAndView("index");
             mv.addObject("hide",0);
-            System.out.println("$$$$ " + dto + "$$$$");
+            mv.addObject("aof",list);
+            System.out.println("$$$$ " + dto.getContaJudicial() + "$$$$");
             return mv;
         } catch (NoSuchElementException e) {
             System.out.println("$$$$$$ NÃO ACHOU O PRODUTO DE ID ");

@@ -18,15 +18,14 @@ public class PesquisaDTO {
 
     private Integer gsv ;
 
-    private Integer contaJudicial;
+    private Integer contaJudicial ;
 
-    private String tipo;
+
 
     public PesquisaDTO(Pesquisa entity){
         id = entity.getId();
         gsv = entity.getGsv();
         contaJudicial = entity.getContaJudicial();
-        tipo = entity.getTipo();
     }
 
 }

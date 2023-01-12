@@ -10,5 +10,5 @@ public class Pesquisa {
     private Long id;
     private Integer gsv;
     private Integer contaJudicial;
-    private String tipo;
+
 }
