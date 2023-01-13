@@ -11,4 +11,5 @@ public class Pesquisa {
     private Integer gsv;
     private Integer contaJudicial;
 
+
 }

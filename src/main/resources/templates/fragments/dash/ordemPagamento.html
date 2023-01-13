@@ -11,8 +11,10 @@
                         voltar</i></a>
                 </div>
             </div>
+
             <div class="card-body form-group row gx-2 gy-3">
                 <div class="row">
+
                     <div class="form-floating col-4">
                         <input type="text" class="form-control form-control-sm" name="nm_GSV" value="12345678"
                                autocomplete="off" disabled="">
@@ -45,6 +47,12 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div style="background-color: #FF0000" th:each="tipo : ${tipoPessoa}">
+            <h2>Div para teste</h2>
+            <span  th:text="${tipoPessoa}"></span>
+
+
         </div>
     </div>
 </div>
