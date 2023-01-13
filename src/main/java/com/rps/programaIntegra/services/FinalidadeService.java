@@ -1,0 +1,24 @@
+package com.rps.programaIntegra.services;
+
+import com.rps.programaIntegra.dto.FinalidadeDTO;
+import com.rps.programaIntegra.entities.Finalidade;
+import com.rps.programaIntegra.repositories.FinalidadeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+public class FinalidadeService {
+
+    @Autowired
+    private FinalidadeRepository repository;
+
+    @Transactional(readOnly = true)
+    public List<FinalidadeDTO> findAll(){
+        List<Finalidade> result = repository.findAll();
+        return result.stream().map(x-> new FinalidadeDTO(x)).toList();
+    }
+
+}

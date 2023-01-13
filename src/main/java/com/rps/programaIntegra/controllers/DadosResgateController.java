@@ -17,7 +17,8 @@ public class DadosResgateController {
     public String resgate(@ModelAttribute DadosResgateDTO dto){
 //        List<DadosResgateDTO> list = new ArrayList();
         try {
-            System.out.println("&&&& " + dto + " &&&&");
+            System.out.println("&&&& " + dto + "&&&&\n");
+            System.out.println("****" + dto.getFinalidade() + "****");
 //            list.add(dto);
             return "index";
         } catch (NoSuchElementException e) {

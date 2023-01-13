@@ -3,6 +3,7 @@ package com.rps.programaIntegra.controllers;
 import com.rps.programaIntegra.dto.DadosResgateDTO;
 import com.rps.programaIntegra.dto.PesquisaDTO;
 import com.rps.programaIntegra.entities.TipoPessoa;
+import com.rps.programaIntegra.services.FinalidadeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,8 @@ import java.util.NoSuchElementException;
 @Controller
 public class IntegraController {
 
-
-//    @GetMapping("/")
-//    public String site (){
-//
-//        return "index";
-//    }
+    @Autowired
+    private FinalidadeService service;
 
     @GetMapping("/")
     public ModelAndView site (){
@@ -49,7 +46,8 @@ public class IntegraController {
             mv.addObject("hide",0);
             mv.addObject("aof",list);
             mv.addObject("tipoPessoa", TipoPessoa.values());
-            System.out.println("$$$$ " + dto.getContaJudicial() + "$$$$");
+            mv.addObject("finalidades", service.findAll());
+//            System.out.println("$$$$ " + dto.getContaJudicial() + "$$$$");
 
             return mv;
         } catch (NoSuchElementException e) {

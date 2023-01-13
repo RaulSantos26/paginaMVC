@@ -84,12 +84,13 @@
                             <label for="floatingPlaintextInput">Base Cálculo:</label>
                         </div>
                         <div class="form-floating col-6">
-                            <select class="form-select  mb-1" name="Nm_Finalidade"
+                            <select class="form-select  mb-1" name="finalidade"
                                     aria-label="" onchange="FinalidadeDiv(this)">
                                 <option value="1" selected>Selecione</option>
-                                <option value="2">1 - Crédito C/C outros Bancos</option>
-                                <option value="3">2 - Crédito C/C BB</option>
-                                <option value="4">99 - Outras Finalidades</option>
+                                <option th:each="finalidade : ${finalidades}"
+                                        th:value="${finalidade.descricao}" th:text="${finalidade.descricao}"></option>
+                            </select>
+
                             </select>
                             <label for="floatingPlaintextInput">Finalidade:</label>
                         </div>

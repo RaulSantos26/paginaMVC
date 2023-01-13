@@ -2,6 +2,7 @@ package com.rps.programaIntegra.entities;
 
 
 
+
 public enum TipoPessoa {
     PF ("PF"),
     PJ ("PJ");

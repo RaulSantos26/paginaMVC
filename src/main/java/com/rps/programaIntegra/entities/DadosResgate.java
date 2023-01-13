@@ -15,5 +15,6 @@ public class DadosResgate {
     private String nome;
     @Enumerated(EnumType.STRING)
     private TipoPessoa tipoPessoa;
+    private Finalidade finalidade;
 
 }
