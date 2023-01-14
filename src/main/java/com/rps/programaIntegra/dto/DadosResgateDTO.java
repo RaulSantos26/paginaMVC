@@ -17,6 +17,7 @@ public class DadosResgateDTO {
     private Long id;
     private BigInteger cfpCnpj;
     private String nome;
+    private String representante;
     private TipoPessoa tipoPessoa;
     private String finalidade;
 
@@ -27,6 +28,7 @@ public class DadosResgateDTO {
         tipoPessoa = entity.getTipoPessoa();
         cfpCnpj = entity.getCfpCnpj();
         finalidade = entity.getFinalidade().getDescricao();
+        representante = entity.getRepresentante();
 
 
     }
