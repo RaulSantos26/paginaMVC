@@ -1,11 +1,12 @@
-<div th:fragment="busca" class="col-5" id="blocoBusca" th:styleappend="${(hide == 0) ? 'display: none;' : ''}">
+<div th:fragment="busca" class="col-5" id="blocoBusca" th:styleappend="${(hide == 0) ? 'display: none;' : ''}"
+     xmlns:th="http://www.w3.org/1999/xhtml">
 
     <div class="card c-extrato">
         <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
             <small class="font-monospace text-muted text-uppercase">Pagamento Avulso</small>
         </div>
         <div class="card-body form-group row gx-2 gy-3">
-            <form th:object="${pesquisaDTO}" action="/" method="post">
+            <form th:object="${pesquisaDTO}" action="/" method="post" >
                 <!--            <form >-->
                 <div class="row m-2">
                     <div class="col-4 row col ">
@@ -32,8 +33,11 @@
                                aria-label="">
                     </div>
                     <div class="col-6 contaJudicial">
-                        <input class="form-control" type="text" placeholder="Conta Judicial" name="contaJudicial"
+                        <input class="form-control" type="text" placeholder="Conta Judicial" name="judicial"
                                aria-label="">
+                        <div style="color:red;">
+                            <span th:if="${#fields.hasErrors('judicial')}" th:errors="*{judicial}"></span>
+                        </div>
 
                     </div>
                     <div class="col-6 consultarPagto">
@@ -51,6 +55,7 @@
                     <button type="button" class="btn btn-sm btn-primary col-5 me-2"> Nova Consulta</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

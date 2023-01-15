@@ -1,10 +1,9 @@
 package com.rps.programaIntegra.dto;
 
 import com.rps.programaIntegra.entities.Pesquisa;
-import com.rps.programaIntegra.entities.TipoPessoa;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.*;
+
+import java.math.BigInteger;
 
 @Getter
 @Setter
@@ -15,11 +14,13 @@ public class PesquisaDTO {
 
 
     private Long id;
-
-
+    private Integer judicial;
     private Integer gsv ;
-
-    private Integer contaJudicial ;
+    private String tribunal;
+    private String comarca;
+    private String orgao;
+    private String esfera;
+    private BigInteger processo;
 
 
 
@@ -27,7 +28,12 @@ public class PesquisaDTO {
     public PesquisaDTO(Pesquisa entity){
         id = entity.getId();
         gsv = entity.getGsv();
-        contaJudicial = entity.getContaJudicial();
+        judicial = entity.getJudicial();
+        tribunal = entity.getTribunal();
+        comarca = entity.getComarca();
+        orgao = entity.getOrgao();
+        esfera = entity.getEsfera();
+        processo = entity.getProcesso();
 
     }
 
