@@ -1,22 +1,32 @@
 package com.rps.programaIntegra.entities;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigInteger;
 
 @Data
 @NoArgsConstructor
+@Entity
+@Table(name = "tb_dado_resgate")
 public class DadosResgate {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private BigInteger cfpCnpj;
+    @Column(name = "cpfcnpj")
+    private BigInteger cfp_cnpj;
     private String nome;
     private String representante;
-    @Enumerated(EnumType.STRING)
-    private TipoPessoa tipoPessoa;
-    private Finalidade finalidade;
+
+
+    @Column(name = "tipo")
+    private String tipo;
+
+    private Long finalidade;
+
+    @Column(name = "judicial")
+    private Integer pesquisa;
 
 
 }

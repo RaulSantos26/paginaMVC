@@ -5,13 +5,18 @@
         <div class="d-flex align-items-center highlight-toolbar bg-light ps-3 pe-2 py-2 mb-2">
             <small class="font-monospace text-muted text-uppercase">DADOS PARA
                 RESGATE</small>
+
         </div>
+
+
         <div class="col-lg-12" style="text-align: right;">
             <button type="submit" form="form-resgate" class="btn btn-sm btn-primary col-2 mb-2" id="Confirmar" >Confirmar</button>
         </div>
     </div>
     <form id="form-resgate" th:object="${dadosResgateDTO}" action="regaste" method="post">
-
+        <div>
+            <input type="text"   th:value="${aof?.judicial}" name="judicial">
+        </div>
         <div class="card-body form-group">
             <div class="row">
                 <div class="form-floating col-2">
@@ -33,7 +38,7 @@
                 </div>
                 <div class="form-floating col-2">
 
-                    <select class="form-select form-select-xs mb-3" name="tipoPessoa"
+                    <select class="form-select form-select-xs mb-3" name="tipo"
                             aria-label="">
                         <option selected>Selecione</option>
                         <option th:each="tipo : ${tipoPessoa}"
@@ -42,7 +47,7 @@
                     <label for="floatingPlaintextInput">Tipo Pessoa:</label>
                 </div>
                 <div class="form-floating col-2">
-                    <input type="text" class="form-control form-control-sm" name="cfpCnpj"
+                    <input type="text" class="form-control form-control-sm" name="cfp_cnpj"
                            value="" autocomplete="off">
                     <label for="floatingPlaintextInput">CPF/CNPJ</label>
                 </div>
@@ -87,7 +92,7 @@
                                     aria-label="" onchange="FinalidadeDiv(this)">
                                 <option data-final="0" selected>Selecione</option>
                                 <option th:each="finalidade : ${finalidades}"
-                                        th:data-final="|${finalidade.id}|" th:value="${finalidade.descricao}" th:text="${finalidade.descricao}"></option>
+                                        th:data-final="|${finalidade.id}|" th:value="${finalidade.id}" th:text="${finalidade.descricao}"></option>
                             </select>
 
                             </select>
