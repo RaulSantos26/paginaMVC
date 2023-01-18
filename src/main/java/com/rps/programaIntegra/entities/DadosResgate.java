@@ -19,14 +19,22 @@ public class DadosResgate {
     private String nome;
     private String representante;
 
+    @Column(name = "id_processo")
+    private Long idProcesso;
+
 
     @Column(name = "tipo")
     private String tipo;
 
-    private Long finalidade;
 
-    @Column(name = "judicial")
-    private Integer pesquisa;
+
+
+    @ManyToOne
+    @JoinColumn(name = "finalidade")
+    private Finalidade finalidade;
+
+
+
 
 
 }

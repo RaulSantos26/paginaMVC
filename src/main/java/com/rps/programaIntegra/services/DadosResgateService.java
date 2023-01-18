@@ -2,16 +2,19 @@ package com.rps.programaIntegra.services;
 
 import com.rps.programaIntegra.dto.DadosResgateDTO;
 import com.rps.programaIntegra.entities.DadosResgate;
+import com.rps.programaIntegra.entities.Finalidade;
 import com.rps.programaIntegra.repositories.DadosResgateRepository;
 import com.rps.programaIntegra.services.exceptions.ResourcesNotFoudException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DadosResgateService {
     @Autowired
     private DadosResgateRepository repository;
+
 
     public DadosResgateDTO insert(DadosResgateDTO dto) {
         try {
@@ -22,6 +25,10 @@ public class DadosResgateService {
         } catch (EntityNotFoundException e) {
             throw new ResourcesNotFoudException("Recurso não encontrado");
         }
+        catch (DataIntegrityViolationException e) {
+            throw new ResourcesNotFoudException("Campo obrigatório");
+        }
+
 
     }
 
@@ -30,8 +37,13 @@ public class DadosResgateService {
         entity.setNome(dto.getNome());
         entity.setRepresentante(dto.getRepresentante());
         entity.setTipo(dto.getTipo());
-        entity.setFinalidade(dto.getFinalidade());
-        entity.setPesquisa(dto.getJudicial());
+//        entity.setJudicial(dto.getJudicial());
+        entity.setIdProcesso(dto.getId());
+
+        Finalidade finalidade = new Finalidade();
+        finalidade.setId(dto.getFinalidade());
+        entity.setFinalidade(finalidade);
+
     }
 
 }

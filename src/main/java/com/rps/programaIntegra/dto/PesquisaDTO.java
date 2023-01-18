@@ -14,6 +14,7 @@ public class PesquisaDTO {
 
 
     private Long id;
+
     private Integer judicial;
     private Integer gsv ;
     private String tribunal;

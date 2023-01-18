@@ -2,10 +2,15 @@ package com.rps.programaIntegra.controllers;
 
 import com.rps.programaIntegra.dto.DadosResgateDTO;
 import com.rps.programaIntegra.services.DadosResgateService;
+import com.rps.programaIntegra.services.exceptions.DatabaseException;
+import com.rps.programaIntegra.services.exceptions.ResourcesNotFoudException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.NoSuchElementException;
 
@@ -17,21 +22,31 @@ public class DadosResgateController {
 
 
     @PostMapping("regaste")
-    public String insert(@ModelAttribute DadosResgateDTO dto){
-        try {
+    public ModelAndView insert(@ModelAttribute @Valid DadosResgateDTO dto,  BindingResult bindingResult){
 
-            System.out.println("&&&& " + dto + "&&&&\n");
-            System.out.println("****" + dto.getFinalidade() + "****");
-            dto = service.insert(dto);
+            if (bindingResult.hasErrors()) {
+                String message = bindingResult.getAllErrors().get(0).getDefaultMessage();
+                System.out.println("\n******Tem erros******\n");
+                ModelAndView mv = new ModelAndView("index");
+                mv.addObject("hide", 1);
+                mv.addObject("pesquisa", dto);
+                return mv;
+            }
+            else {
+                try {
+                    dto = service.insert(dto);
+
+                } catch (ResourcesNotFoudException erro) {
+                    String sucesso = "Teve sucesso";
+                    ModelAndView mv = new ModelAndView("index");
+                    mv.addObject("erro", erro.getMessage());
+                    mv.addObject("hide", 0);
+                    return mv;
 
 
-//            list.add(dto);
-            return "index";
-        } catch (NoSuchElementException e) {
-            System.out.println("$$$$$$ NÃO ACHOU O PRODUTO DE ID ");
-            return "Erro";
-
-        }
+                }
+            }
+        return null;
     }
 
 

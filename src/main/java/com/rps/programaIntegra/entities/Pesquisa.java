@@ -24,4 +24,7 @@ public class Pesquisa {
     private BigInteger processo;
 
 
+
+
+
 }

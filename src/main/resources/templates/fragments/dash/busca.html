@@ -31,12 +31,14 @@
                     <div class="col-6 numeroGsv" style="display: none;">
                         <input class="form-control" type="text" placeholder="Número GSV" name="gsv"
                                aria-label="">
+
                     </div>
                     <div class="col-6 contaJudicial">
                         <input class="form-control" type="text" placeholder="Conta Judicial" name="judicial"
                                aria-label="">
-                        <div style="color:red;">
-<!--                            <span th:if="${#fields.hasErrors('judicial')}" th:errors="*{judicial}"></span>-->
+                        <span  th:if="${#fields.hasErrors('judicial') != null}" th:errors="*{judicial}" class="text-danger"></span>
+                        <div>
+                            <span class="text-danger" th:if="${erro != null}" th:text="${erro}"></span>
                         </div>
 
                     </div>

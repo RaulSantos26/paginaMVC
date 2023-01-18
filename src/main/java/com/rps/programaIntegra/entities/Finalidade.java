@@ -20,6 +20,9 @@ public class Finalidade {
     private Long id;
     private String descricao;
 
+    @OneToMany(mappedBy = "finalidade")
+    private List<DadosResgate> dadosResgates = new ArrayList<>();
+
 
 
 }

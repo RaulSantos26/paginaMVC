@@ -4,6 +4,7 @@ import com.rps.programaIntegra.dto.PesquisaDTO;
 import com.rps.programaIntegra.entities.TipoPessoa;
 import com.rps.programaIntegra.services.FinalidadeService;
 import com.rps.programaIntegra.services.PesquisaService;
+import com.rps.programaIntegra.services.exceptions.DatabaseException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +39,10 @@ public class IntegraController {
 
 
     @PostMapping("/")
-    public ModelAndView pesquisa(@Valid PesquisaDTO dto,  BindingResult bindingResult) {
+    public ModelAndView pesquisa(@Valid PesquisaDTO dto,   BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
-//            String message = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            String message = bindingResult.getAllErrors().get(0).getDefaultMessage();
             System.out.println("\n******Tem erros******\n");
             ModelAndView mv = new ModelAndView("index");
             mv.addObject("hide", 1);
@@ -48,9 +50,16 @@ public class IntegraController {
             return mv;
         }
         else {
-
             try {
-                PesquisaDTO result = servicePesquisa.findBycontaJudicial(dto.getJudicial());
+                PesquisaDTO result;
+                if(dto.getJudicial()!= null){
+                    result = servicePesquisa.findBycontaJudicial(dto.getJudicial());
+                }
+                else {
+                    result = servicePesquisa.findBygsv(dto.getGsv());
+                }
+
+
                 System.out.println("####" + result + "####");
                 ModelAndView mv = new ModelAndView("index");
                 mv.addObject("hide", 0);
@@ -60,9 +69,11 @@ public class IntegraController {
 //            System.out.println("$$$$ " + dto.getContaJudicial() + "$$$$");
 
                 return mv;
-            } catch (NoSuchElementException e) {
-                System.out.println("$$$$$$ NÃO ACHOU O PRODUTO DE ID ");
-                return new ModelAndView("redirect:/");
+            } catch (DatabaseException erro) {
+                ModelAndView mv = new ModelAndView("index");
+                mv.addObject("erro", erro.getMessage());
+                mv.addObject("hide", 1);
+                return mv;
 
             }
         }

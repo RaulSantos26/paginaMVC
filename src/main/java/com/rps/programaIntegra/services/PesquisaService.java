@@ -6,9 +6,9 @@ import com.rps.programaIntegra.repositories.PesquisaRepository;
 import com.rps.programaIntegra.services.exceptions.DatabaseException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.method.support.InvocableHandlerMethod;
 
 import java.util.NoSuchElementException;
 
@@ -40,8 +40,31 @@ public class PesquisaService {
         catch (NullPointerException e) {
             throw new DatabaseException("Recurso não encontrado");
         }
+    }
+
+    @Transactional(readOnly = true)
+    public PesquisaDTO findBygsv(Integer gsv){
+        try {
+            Pesquisa pesquisa = repository.findBygsv(gsv);
+            return new PesquisaDTO(pesquisa);
+        }
+        catch (EntityNotFoundException e){
+            throw new DatabaseException("Recurso não encontrado");
+        }
+        catch (NoSuchElementException e) {
+            throw new DatabaseException("Recurso não encontrado");
+        }
+        catch (NullPointerException e) {
+            throw new DatabaseException("Recurso não encontrado");
+        }
+        catch (IncorrectResultSizeDataAccessException e) {
+            throw new DatabaseException("Campo vazio");
+        }
 
 
 
     }
+
+
+
 }

@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PesquisaRepository  extends JpaRepository<Pesquisa, Long> {
 
     Pesquisa findByjudicial(Integer judicial);
+
+    Pesquisa findBygsv(Integer gsv);
 }
 
